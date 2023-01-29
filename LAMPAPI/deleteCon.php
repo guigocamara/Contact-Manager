@@ -2,9 +2,9 @@
 
   $inData = getRequestInfo();
   
-  $firstName = $inData["firstName"];
-  $lastName = $inData["lastName"];
-  $userId = $inData["userId"];
+  $firstName = $inData["FirstName"];
+  $lastName = $inData["LastName"];
+  $userId = $inData["UserId"];
 
   $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
   
@@ -15,14 +15,14 @@
 
   else
   {
-    $stmt = $conn->prepare("SELECT * FROM Records WHERE FirstName = ? AND LastName = ? AND UserID = ?");
+    $stmt = $conn->prepare("SELECT * FROM Contacts WHERE FirstName = ? AND LastName = ? AND UserID = ?");
     $stmt->bind_param("sss", $firstName, $lastName, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc())
     {
-      $stmt2 =  $conn->prepare("DELETE FROM Records WHERE FirstName = ? AND LastName = ? AND UserID = ?");
+      $stmt2 =  $conn->prepare("DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND UserID = ?");
       $stmt2->bind_param("ssi", $firstName, $lastName, $userId);
       $stmt2->execute();
       returnWithError("");
