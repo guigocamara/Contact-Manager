@@ -12,16 +12,32 @@
   
   <img id="ufo" src="./images/UFOWeb.png">
   
-  <div id="loginDiv">
+  <form id="loginDiv">
   	<span id="innerTitle">Login to UFO</span>
-  	<input type="text" id="loginName" class="input" placeholder="Username" />
+  	<input type="text" id="loginUsername" class="input" placeholder="Username" />
   	<input type="password" id="loginPassword" class="input" placeholder="Password"/>
    <div id="bottomRow">
-     <div id="signUpLink">No Account? Book a ride today!</div>
+     <a id="signUpLink" href="">No Account? Book a ride today!</a>
   	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Enter... </button>
    </div>
   	<span id="loginResult"></span>
-  </div>
+  </form>
+
+
+  <form id="registerDiv" class="formHidden">
+  	<span id="innerTitle">Sign Up for UFO</span>
+    <input type="text" id="registerFirstName" class="input" placeholder="First Name"/>
+    <input type="text" id="registerLastName" class="input" placeholder="Last Name"/>
+  	<input type="text" id="registerUsername" class="input" placeholder="Username" />
+  	<input type="password" id="registerPassword" class="input" placeholder="Password"/>
+
+   <div id="bottomRow">
+    <button type="button" id="backToLoginButton" class="buttons">Back</button>
+  	<button type="button" id="registerButton" class="buttons" onclick="doRegistration();"> Enter... </button>
+   </div>
+  	<span id="Result"></span>
+  </form>
+  
 
 </body>
 </html>

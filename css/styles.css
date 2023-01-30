@@ -5,13 +5,17 @@ html
   
 body 
 {
-  background-image: url("/images/SpaceEarth.png");
+  background-image: url("SpaceEarth.png");
   background-size: cover;
   max-width: 100%;
   background-position:center;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.formHidden{
+  display: none !important;
 }
 
 #ufo
@@ -47,18 +51,6 @@ body
   color: white;
 }
 
-
-#loginName
-{
-  color: black;
-    font-size: 20px;
-}
-
-#loginPassword
-{
-    font-size: 20px;
-}
-
 .buttons
 {
   font-size: 25px;
@@ -78,6 +70,8 @@ body
   background-color: #FFFFFF;
   color: black;
   border: 2px solid black;
+  color: black;
+  font-size: 20px;
 }
 
 #signUpLink{
@@ -102,6 +96,40 @@ body
   color: black;
 }
 
+#registerDiv
+{
+    font-size: 35px;
+    border-radius: 25px;
+    width: 30%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    background-color: #9C9C9C;
+    opacity: 80%;
+    padding: 10px;    
+}
+
+#registerTitle 
+{
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #FFFFFF;
+}
+
+#registerButton{
+  align-self: end;
+  font-size: 20px;
+  width: 30%;
+}
+
+#backToLoginButton{
+  align-self: start;
+  font-size: 20px;
+  width: 30%;
+}
 
 
 

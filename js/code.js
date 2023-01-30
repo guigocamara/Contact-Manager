@@ -1,6 +1,23 @@
 const urlBase = 'http://COP4331-5.com/LAMPAPI';
 const extension = 'php';
 
+document.addEventListener("DOMContentLoaded", () =>{
+	const loginForm = document.querySelector("#loginDiv");
+	const createAccountForm = document.querySelector("#registerDiv");
+
+	
+	document.querySelector("#signUpLink").addEventListener("click", e => {
+		e.preventDefault();
+		loginForm.classList.add("formHidden");
+		createAccountForm.classList.remove("formHidden");
+	});
+
+	document.querySelector("#backToLoginButton").addEventListener("click", e =>{
+		loginForm.classList.remove("formHidden");
+		createAccountForm.classList.add("formHidden");
+	})
+});
+
 let userId = 0;
 let firstName = "";
 let lastName = "";
@@ -57,6 +74,66 @@ function doLogin()
 	}
 
 }
+
+function doRegistration(){
+	firstName = document.getElementById("registrationFirstName");
+	lastName = document.getElementById("registrationLastName");
+	
+	let username = document.getElementById("registerUsername").value;
+	let password = document.getElementById("registerPassword").value;
+//	var hash = md5( password );
+	
+	document.getElementById("registrationResult").innerHTML = "";
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		login:username,
+		password:password,
+	};
+//	var tmp = {login:login,password:hash};
+
+	let jsonPayload = JSON.stringify( tmp );
+	
+	let url = urlBase + '/SignUp.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.status == 409){
+				document.getElementById("registrationResult").innerHTML = "User exists"
+			}
+
+			if (this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+
+				document.getElementById("registrationResult").innerHTML = "User added to database";			
+		
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+				window.location.href = "color.html";
+				return;
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("registrationResult").innerHTML = err.message;
+	}
+
+}
+
+
 
 function saveCookie()
 {
