@@ -5,7 +5,7 @@ html
   
 body 
 {
-  background-image: url("SpaceEarth.png");
+  background-image: url("../images/SpaceEarth.png");
   background-size: cover;
   max-width: 100%;
   background-position:center;
