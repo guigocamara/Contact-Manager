@@ -37,7 +37,7 @@ body
     font-size: 35px;
     border-radius: 25px;
     width: 30%;
-    height: 40%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -47,8 +47,25 @@ body
     padding: 10px;    
 }
 
+.validationError
+{
+  font-size: 18px;
+  color: red;
+  width: 100%;
+  height: 40px;
+  margin-top: 2px;
+}
+
 #innerTitle{
-  color: white;
+  color: black;
+}
+
+#loginUsername{
+  margin-top: 20px;
+}
+
+#registerFirstName{
+  margin-top: 20px;
 }
 
 .buttons
@@ -101,7 +118,7 @@ body
     font-size: 35px;
     border-radius: 25px;
     width: 30%;
-    height: 60%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     align-items: start;
