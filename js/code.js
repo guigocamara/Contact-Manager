@@ -1,4 +1,4 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://cop4331group24.online//LAMPAPI';
 const extension = 'php';
 
 document.addEventListener("DOMContentLoaded", () =>{
@@ -28,7 +28,7 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("loginName").value;
+	let login = document.getElementById("loginUsername").value;
 	let password = document.getElementById("loginPassword").value;
 //	var hash = md5( password );
 	
@@ -62,7 +62,7 @@ function doLogin()
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	
+
 				window.location.href = "color.html";
 			}
 		};
@@ -76,14 +76,14 @@ function doLogin()
 }
 
 function doRegistration(){
-	firstName = document.getElementById("registrationFirstName");
-	lastName = document.getElementById("registrationLastName");
+	firstName = document.getElementById("registerFirstName");
+	lastName = document.getElementById("registerLastName");
 	
 	let username = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
 //	var hash = md5( password );
 	
-	document.getElementById("registrationResult").innerHTML = "";
+	document.getElementById("registerResult").innerHTML = "";
 
 	let tmp = {
 		firstName: firstName,
@@ -95,7 +95,7 @@ function doRegistration(){
 
 	let jsonPayload = JSON.stringify( tmp );
 	
-	let url = urlBase + '/SignUp.' + extension;
+	let url = urlBase + '/register.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -105,7 +105,7 @@ function doRegistration(){
 		xhr.onreadystatechange = function() 
 		{
 			if (this.status == 409){
-				document.getElementById("registrationResult").innerHTML = "User exists"
+				document.getElementById("registerResult").innerHTML = "User exists"
 			}
 
 			if (this.status == 200) 
@@ -113,7 +113,7 @@ function doRegistration(){
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
-				document.getElementById("registrationResult").innerHTML = "User added to database";			
+				document.getElementById("registerResult").innerHTML = "User added to database";			
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
@@ -128,7 +128,7 @@ function doRegistration(){
 	}
 	catch(err)
 	{
-		document.getElementById("registrationResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = err.message;
 	}
 
 }
