@@ -1,4 +1,4 @@
-const urlBase = 'http://cop4331group24.online//LAMPAPI';
+const urlBase = 'http://68.183.62.66///LAMPAPI';
 const extension = 'php';
 
 document.addEventListener("DOMContentLoaded", () =>{
@@ -83,12 +83,13 @@ function registerValidation(){
 	var startLetter = /^[A-Za-z]/g;
 	var betweenLetters = /^[A-Za-z0-9]*$/g;
 	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
-	let result = false;
+	let resultusername = false;
+	let resultpassword = false;
 
 	//Validate the Username
 	if(registerUsername.match(totalRegex)){
 		registerUsernameError.innerHTML = "";
-		result = true;
+		resultusername = true;
 	}else if(registerUsername.length == 0){
 		registerUsernameError.innerHTML = "";
 	}else{
@@ -108,7 +109,7 @@ function registerValidation(){
 	//Validate the Password
 	if(registerPassword.match(totalRegex)){
 		registerPasswordError.innerHTML = "";
-		result = true;
+		resultpassword = true;
 	}else if(registerPassword.length == 0){
 		registerPasswordError.innerHTML = "";
 	}else{
@@ -125,7 +126,11 @@ function registerValidation(){
 		}
 	}
 
-	return(result);
+	if(resultusername && resultpassword){
+		return(true);
+	}else{
+		return(false);
+	}
 }
 
 
@@ -187,61 +192,62 @@ function doLogin()
 }
 
 function doRegistration(){
-	firstName = document.getElementById("registerFirstName");
-	lastName = document.getElementById("registerLastName");
-	
-	let username = document.getElementById("registerUsername").value;
-	let password = document.getElementById("registerPassword").value;
-//	var hash = md5( password );
-	
-	document.getElementById("registerResult").innerHTML = "";
-
-	let tmp = {
-		firstName: firstName,
-		lastName: lastName,
-		login:username,
-		password:password,
-	};
-//	var tmp = {login:login,password:hash};
-
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/register.' + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.status == 409){
-				document.getElementById("registerResult").innerHTML = "User exists"
-			}
-
-			if (this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-
-				document.getElementById("registerResult").innerHTML = "User added to database";			
+	if(registerValidation() == true){
+		firstName = document.getElementById("registerFirstName");
+		lastName = document.getElementById("registerLastName");
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+		let username = document.getElementById("registerUsername").value;
+		let password = document.getElementById("registerPassword").value;
+	//	var hash = md5( password );
+		
+		document.getElementById("registerResult").innerHTML = "";
 
-				saveCookie();
-				window.location.href = "color.html";
-				return;
-			}
+		let tmp = {
+			firstName: firstName,
+			lastName: lastName,
+			login:username,
+			password:password,
 		};
+	//	var tmp = {login:login,password:hash};
 
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("registerResult").innerHTML = err.message;
-	}
+		let jsonPayload = JSON.stringify( tmp );
+		
+		let url = urlBase + '/register.' + extension;
 
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.status == 409){
+					document.getElementById("registerResult").innerHTML = "User exists"
+				}
+
+				if (this.status == 200) 
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					userId = jsonObject.id;
+
+					document.getElementById("registerResult").innerHTML = "User added to database";			
+			
+					firstName = jsonObject.firstName;
+					lastName = jsonObject.lastName;
+
+					saveCookie();
+					window.location.href = "color.html";
+					return;
+				}
+			};
+
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("registerResult").innerHTML = err.message;
+		}
+	}
 }
 
 
