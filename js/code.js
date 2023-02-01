@@ -20,74 +20,80 @@ document.addEventListener("DOMContentLoaded", () =>{
 });
 
 function loginValidation(){
-	const loginUsernameError = document.getElementById("loginUsernameError");
-	const loginPasswordError = document.getElementById("loginPasswordError");
-	const loginusername = document.getElementById("loginUsername").value;
-	const loginpassword = document.getElementById("loginPassword").value;
+	document.getElementById("loginUsernameError").innerHTML = "";
+ 	document.getElementById("loginPasswordError").innerHTML = "";
+
+// 	var startLetter = /^[A-Za-z]/g;
+// 	var betweenLetters = /^[A-Za-z0-9]*$/g;
+// 	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
+// 	let result = false;
+// 	//Validate the Username
+// 	if(loginusername.match(totalRegex)){
+// 		loginUsernameError.innerHTML = "";
+// 		result = true;
+// 	}else if(loginusername.length == 0){
+// 		loginUsernameError.innerHTML = "";
+// 	}else{
+// 		if(!loginusername.match(betweenLetters)){
+// 			loginUsernameError.innerHTML = "Username must contain only letters, numbers, or _";
+// 		}
 	
-	var startLetter = /^[A-Za-z]/g;
-	var betweenLetters = /^[A-Za-z0-9]*$/g;
-	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
-	let result = false;
-	//Validate the Username
-	if(loginusername.match(totalRegex)){
-		loginUsernameError.innerHTML = "";
-		result = true;
-	}else if(loginusername.length == 0){
-		loginUsernameError.innerHTML = "";
-	}else{
-		if(!loginusername.match(betweenLetters)){
-			loginUsernameError.innerHTML = "Username must contain only letters, numbers, or _";
-		}
+// 		if(!loginusername.match(startLetter)){
+// 			loginUsernameError.innerHTML = "Username must start with a letter";
+// 		}
+
+// 		if(loginusername.length < 3 || loginusername.length > 29){
+// 			loginUsernameError.innerHTML = "Username length should be 3-29";
+// 		}
+// 	}
+
+
+// 	//Validate the Password
+// 	if(loginpassword.match(totalRegex)){
+// 		loginPasswordError.innerHTML = "";
+// 		result = true;
+// 	}else if(loginpassword.length == 0){
+// 		loginPasswordError.innerHTML = "";
+// 	}else{
+// 		if(!loginpassword.match(betweenLetters)){
+// 			loginPasswordError.innerHTML = "Password must contain only letters, numbers, or _";
+// 		}
 	
-		if(!loginusername.match(startLetter)){
-			loginUsernameError.innerHTML = "Username must start with a letter";
-		}
+// 		if(!loginpassword.match(startLetter)){
+// 			loginPasswordError.innerHTML = "Password must start with a letter";
+// 		}
 
-		if(loginusername.length < 3 || loginusername.length > 29){
-			loginUsernameError.innerHTML = "Username length should be 3-29";
-		}
-	}
-
-
-	//Validate the Password
-	if(loginpassword.match(totalRegex)){
-		loginPasswordError.innerHTML = "";
-		result = true;
-	}else if(loginpassword.length == 0){
-		loginPasswordError.innerHTML = "";
-	}else{
-		if(!loginpassword.match(betweenLetters)){
-			loginPasswordError.innerHTML = "Password must contain only letters, numbers, or _";
-		}
-	
-		if(!loginpassword.match(startLetter)){
-			loginPasswordError.innerHTML = "Password must start with a letter";
-		}
-
-		if(loginpassword.length < 3 || loginpassword.length > 29){
-			loginPasswordError.innerHTML = "Passowrd length should be 3-29";
-		}
-	}
+// 		if(loginpassword.length < 3 || loginpassword.length > 29){
+// 			loginPasswordError.innerHTML = "Passowrd length should be 3-29";
+// 		}
+// 	}
 
 
-	return(result);
-}
+// 	return(result);
+ }
 
 function registerValidation(){
 	const registerUsernameError = document.getElementById("registerUsernameError");
 	const registerPasswordError = document.getElementById("registerPasswordError");
+	const registerFirstNameError = document.getElementById("registerFirstNameError");
+	const registerLastNameError = document.getElementById("registerLastNameError");
 	const registerUsername = document.getElementById("registerUsername").value;
 	const registerPassword = document.getElementById("registerPassword").value;
+	const registerFirstName = document.getElementById("registerFirstName").value;
+	const registerLastName = document.getElementById("registerLastName").value;
 
 	var startLetter = /^[A-Za-z]/g;
 	var betweenLetters = /^[A-Za-z0-9]*$/g;
-	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
+	var totalRegexUsername = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
+	var totalRegexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{3,29}$/g
+	var totalRegexName = /^[a-z ,.'-]+$/i
 	let resultusername = false;
 	let resultpassword = false;
+	let resultfirstname = false;
+	let resultlastname = false;
 
 	//Validate the Username
-	if(registerUsername.match(totalRegex)){
+	if(registerUsername.match(totalRegexUsername)){
 		registerUsernameError.innerHTML = "";
 		resultusername = true;
 	}else if(registerUsername.length == 0){
@@ -107,26 +113,50 @@ function registerValidation(){
 	}
 
 	//Validate the Password
-	if(registerPassword.match(totalRegex)){
+	if(registerPassword.match(totalRegexPassword)){
 		registerPasswordError.innerHTML = "";
 		resultpassword = true;
 	}else if(registerPassword.length == 0){
 		registerPasswordError.innerHTML = "";
 	}else{
-		if(!registerPassword.match(betweenLetters)){
-			registerPasswordError.innerHTML = "Password must contain only letters, numbers, or _";
+		if(!registerPassword.match(totalRegexPassword)){
+			registerPasswordError.innerHTML = "Password must contain one letter, number, and special character";
 		}
-	
-		if(!registerPassword.match(startLetter)){
-			registerPasswordError.innerHTML = "Password must start with a letter";
-		}
-
-		if(registerPassword.length < 3 || registerUsername.length > 29){
+		
+		if(registerPassword.length < 3 || registerPassword.length > 29){
 			registerPasswordError.innerHTML = "Password length should be 3-29";
 		}
 	}
 
-	if(resultusername && resultpassword){
+
+	//Validate first name
+	if(registerFirstName.match(totalRegexName)){
+		registerFirstNameError.innerHTML = "";
+		resultfirstname = true;
+	}else if(registerFirstName.length == 0){
+		registerFirstNameError.innerHTML = "";
+	}else{
+		if(!registerFirstName.match(totalRegexName)){
+			registerFirstNameError.innerHTML = "Please enter a valid first name";
+		}
+	}
+
+	
+	//Validate last name
+	if(registerLastName.match(totalRegexName)){
+		registerLastNameError.innerHTML = "";
+		resultlastname = true;
+	}else if(registerLastName.length == 0){
+		registerLastNameError.innerHTML = "";
+	}else{
+		if(!registerLastName.match(totalRegexName)){
+			registerLastNameError.innerHTML = "Please enter a valid last name";
+		}
+	}
+
+
+
+	if(resultusername && resultpassword && resultfirstname && resultlastname){
 		return(true);
 	}else{
 		return(false);
@@ -139,8 +169,18 @@ let firstName = "";
 let lastName = "";
 
 function doLogin()
-{
-	userId = 0;
+{	
+	//Check login fields aren't empty
+	if(document.getElementById("loginUsername").value.length == 0 || document.getElementById("loginPassword").value.length == 0){
+		if(document.getElementById("loginUsername").value.length == 0){
+			document.getElementById("loginUsernameError").innerHTML = "Please enter a Username!";
+		}
+
+		if(document.getElementById("loginPassword").value.length == 0){
+			document.getElementById("loginPasswordError").innerHTML = "Please enter a Password!";
+		}
+	}else{
+		userId = 0;
 	firstName = "";
 	lastName = "";
 	
@@ -183,16 +223,36 @@ function doLogin()
 			}
 		};
 		xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("loginResult").innerHTML = err.message;
+		}
 	}
-	catch(err)
-	{
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
+	
 
 }
 
 function doRegistration(){
-	if(registerValidation() == true){
+	//Check that the input field are not empty
+	if(document.getElementById("registerUsername").value.length == 0 || document.getElementById("registerPassword").value.length == 0 || document.getElementById("registerFirstName").value.length == 0 || document.getElementById("registerLastName").value.length == 0){
+		if(document.getElementById("registerUsername").value.length == 0){
+			document.getElementById("registerUsernameError").innerHTML = "Please enter a Username!";
+		}
+
+		if(document.getElementById("registerPassword").value.length == 0){
+			document.getElementById("registerPasswordError").innerHTML = "Please enter a Password!";
+		}
+
+		if(document.getElementById("registerFirstName").value.length == 0){
+			document.getElementById("registerFirstNameError").innerHTML = "Please enter a First Name!";
+		}
+
+		if(document.getElementById("registerLastName").value.length == 0){
+			document.getElementById("registerLastNameError").innerHTML = "Please enter a Last Name!";
+		}
+		
+	}else if(registerValidation() == true){
 		firstName = document.getElementById("registerFirstName");
 		lastName = document.getElementById("registerLastName");
 		

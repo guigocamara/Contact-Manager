@@ -68,6 +68,10 @@ body
   margin-top: 20px;
 }
 
+#registerPasswordError{
+  height: 70px;
+}
+
 .buttons
 {
   font-size: 25px;
