@@ -50,6 +50,21 @@ body
     border-color: #00a566;
 }
 
+.back-btn
+{
+    color: #00a566;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    /* border: none; */
+    outline: none;
+    cursor: pointer;
+    border-color: #00a566;
+    /* margin-right: 200px; */
+}
+
 img
 {
     width: 80px;

@@ -11,8 +11,19 @@
 
     <body>
         <input type="text" class="input-box" placeholder="Search">
-        <button type = "button" class = "add-contact-btn">New Contact</button>
-        <table class="styled-table" width="100%">
+        <button id="contact-btn" type="button" class="new-contact-btn">
+            <span class="button__text"></span>
+            <span class="button__icon"> 
+                <ion-icon name="person-add-outline"></ion-icon>
+            </span>
+        </button>
+        <button id="logout-btn" type="button" class="logout-btn">
+            <span class="button__text"></span>
+            <span class="button__icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </span>
+        </button>
+        <table class="styled-table" width="90%" >
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -23,14 +34,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="color: aliceblue;">
                     <td>Dom</td>
                     <td>Finch</td>
                     <td>domfinch@hotmail.com</td>
                     <td>670-846-2625</td>
                     <td>
-                        <button type="button" class="btn"><i class="fa-solid fa-user-plus"></i></button>
-                        <button type="button" class="edit-btn">Edit</button>
+                        <button id="delete-btn" type="button" class="btn">
+                            <span class="button__text"></span>
+                            <span class="button__icon">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </span>
+                        </button>
+
+                        <button id="edit-btn" type="button" class="btn">
+                            <span class="button__text"></span>
+                            <span class="button__icon">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </span>
+                        </button>
                     </td>
                 </tr>
                 <tr class="active-row">
@@ -40,5 +62,7 @@
                 
             </tbody>
         </table>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </body>
 </html>
