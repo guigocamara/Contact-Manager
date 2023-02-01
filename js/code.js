@@ -1,7 +1,8 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://cop4331group24.online//LAMPAPI';
 const extension = 'php';
 
 document.addEventListener("DOMContentLoaded", () =>{
+	//Following code hides or shows the registration/login information.
 	const loginForm = document.querySelector("#loginDiv");
 	const createAccountForm = document.querySelector("#registerDiv");
 
@@ -18,6 +19,116 @@ document.addEventListener("DOMContentLoaded", () =>{
 	})
 });
 
+function loginValidation(){
+	const loginUsernameError = document.getElementById("loginUsernameError");
+	const loginPasswordError = document.getElementById("loginPasswordError");
+	const loginusername = document.getElementById("loginUsername").value;
+	const loginpassword = document.getElementById("loginPassword").value;
+	
+	var startLetter = /^[A-Za-z]/g;
+	var betweenLetters = /^[A-Za-z0-9]*$/g;
+	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
+	let result = false;
+	//Validate the Username
+	if(loginusername.match(totalRegex)){
+		loginUsernameError.innerHTML = "";
+		result = true;
+	}else if(loginusername.length == 0){
+		loginUsernameError.innerHTML = "";
+	}else{
+		if(!loginusername.match(betweenLetters)){
+			loginUsernameError.innerHTML = "Username must contain only letters, numbers, or _";
+		}
+	
+		if(!loginusername.match(startLetter)){
+			loginUsernameError.innerHTML = "Username must start with a letter";
+		}
+
+		if(loginusername.length < 3 || loginusername.length > 29){
+			loginUsernameError.innerHTML = "Username length should be 3-29";
+		}
+	}
+
+
+	//Validate the Password
+	if(loginpassword.match(totalRegex)){
+		loginPasswordError.innerHTML = "";
+		result = true;
+	}else if(loginpassword.length == 0){
+		loginPasswordError.innerHTML = "";
+	}else{
+		if(!loginpassword.match(betweenLetters)){
+			loginPasswordError.innerHTML = "Password must contain only letters, numbers, or _";
+		}
+	
+		if(!loginpassword.match(startLetter)){
+			loginPasswordError.innerHTML = "Password must start with a letter";
+		}
+
+		if(loginpassword.length < 3 || loginpassword.length > 29){
+			loginPasswordError.innerHTML = "Passowrd length should be 3-29";
+		}
+	}
+
+
+	return(result);
+}
+
+function registerValidation(){
+	const registerUsernameError = document.getElementById("registerUsernameError");
+	const registerPasswordError = document.getElementById("registerPasswordError");
+	const registerUsername = document.getElementById("registerUsername").value;
+	const registerPassword = document.getElementById("registerPassword").value;
+
+	var startLetter = /^[A-Za-z]/g;
+	var betweenLetters = /^[A-Za-z0-9]*$/g;
+	var totalRegex = /^[A-Za-z][A-Za-z0-9_]{3,29}$/g
+	let result = false;
+
+	//Validate the Username
+	if(registerUsername.match(totalRegex)){
+		registerUsernameError.innerHTML = "";
+		result = true;
+	}else if(registerUsername.length == 0){
+		registerUsernameError.innerHTML = "";
+	}else{
+		if(!registerUsername.match(betweenLetters)){
+			registerUsernameError.innerHTML = "Username must contain only letters, numbers, or _";
+		}
+	
+		if(!registerUsername.match(startLetter)){
+			registerUsernameError.innerHTML = "Username must start with a letter";
+		}
+
+		if(registerUsername.length < 3 || registerUsername.length > 29){
+			registerUsernameError.innerHTML = "Username length should be 3-29";
+		}
+	}
+
+	//Validate the Password
+	if(registerPassword.match(totalRegex)){
+		registerPasswordError.innerHTML = "";
+		result = true;
+	}else if(registerPassword.length == 0){
+		registerPasswordError.innerHTML = "";
+	}else{
+		if(!registerPassword.match(betweenLetters)){
+			registerPasswordError.innerHTML = "Password must contain only letters, numbers, or _";
+		}
+	
+		if(!registerPassword.match(startLetter)){
+			registerPasswordError.innerHTML = "Password must start with a letter";
+		}
+
+		if(registerPassword.length < 3 || registerUsername.length > 29){
+			registerPasswordError.innerHTML = "Password length should be 3-29";
+		}
+	}
+
+	return(result);
+}
+
+
 let userId = 0;
 let firstName = "";
 let lastName = "";
@@ -28,12 +139,12 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("loginName").value;
+	let login = document.getElementById("loginUsername").value;
 	let password = document.getElementById("loginPassword").value;
 //	var hash = md5( password );
-	
 	document.getElementById("loginResult").innerHTML = "";
 
+	
 	let tmp = {login:login,password:password};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
@@ -62,7 +173,7 @@ function doLogin()
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	
+
 				window.location.href = "color.html";
 			}
 		};
@@ -76,14 +187,14 @@ function doLogin()
 }
 
 function doRegistration(){
-	firstName = document.getElementById("registrationFirstName");
-	lastName = document.getElementById("registrationLastName");
+	firstName = document.getElementById("registerFirstName");
+	lastName = document.getElementById("registerLastName");
 	
 	let username = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
 //	var hash = md5( password );
 	
-	document.getElementById("registrationResult").innerHTML = "";
+	document.getElementById("registerResult").innerHTML = "";
 
 	let tmp = {
 		firstName: firstName,
@@ -95,7 +206,7 @@ function doRegistration(){
 
 	let jsonPayload = JSON.stringify( tmp );
 	
-	let url = urlBase + '/SignUp.' + extension;
+	let url = urlBase + '/register.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -105,7 +216,7 @@ function doRegistration(){
 		xhr.onreadystatechange = function() 
 		{
 			if (this.status == 409){
-				document.getElementById("registrationResult").innerHTML = "User exists"
+				document.getElementById("registerResult").innerHTML = "User exists"
 			}
 
 			if (this.status == 200) 
@@ -113,7 +224,7 @@ function doRegistration(){
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
-				document.getElementById("registrationResult").innerHTML = "User added to database";			
+				document.getElementById("registerResult").innerHTML = "User added to database";			
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
@@ -128,7 +239,7 @@ function doRegistration(){
 	}
 	catch(err)
 	{
-		document.getElementById("registrationResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = err.message;
 	}
 
 }

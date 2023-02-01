@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>COP 4331 LAMP Stack</title>
+    <link href="css/loginregistration.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="icon" href="images/ufo-website-icon.png" type="image/x-icon">
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+</head>
+
+<body>
+  <h1 id="loginTitle">Greetings Earthling</h1>
+  
+  <img id="ufo" src="./images/UFOWeb.png">
+  
+  <form id="loginDiv">
+  	<span id="innerTitle">Login to UFO</span>
+  	<input type="text" id="loginUsername" class="input" placeholder="Username" onkeyup="loginValidation()"/>
+    <div id="loginUsernameError" class="validationError"></div>
+  	<input type="password" id="loginPassword" class="input" placeholder="Password" onkeyup="loginValidation()"/>
+    <div id="loginPasswordError" class="validationError"></div>
+   <div id="bottomRow">
+     <a id="signUpLink" href="">No Account? Book a ride today!</a>
+  	<button type="button" id="loginButton" class="buttons" onclick="doLogin()"> Enter... </button>
+   </div>
+   <div type="text" id="loginResult" class="validationError"></div> 
+  </form>
+
+
+  <form id="registerDiv" class="formHidden">
+  	<span id="innerTitle">Sign Up for UFO</span>
+    <input type="text" id="registerFirstName" class="input" placeholder="First Name" onkeyup="registerValidation()"/>
+    <div id="registerFirstNameError" class="validationError"></div>
+    <input type="text" id="registerLastName" class="input" placeholder="Last Name" onkeyup="registerValidation()"/>
+    <div id="registerLastNameError" class="validationError"></div>
+  	<input type="text" id="registerUsername" class="input" placeholder="Username" onkeyup="registerValidation()"/>
+    <div id="registerUsernameError" class="validationError"></div>
+  	<input type="password" id="registerPassword" class="input" placeholder="Password" onkeyup="registerValidation()"/>
+    <div id="registerPasswordError" class="validationError"></div>
+   <div id="bottomRow">
+    <button type="button" id="backToLoginButton" class="buttons">Back</button>
+  	<button type="button" id="registerButton" class="buttons" onclick="doRegistration()"> Enter... </button>
+   </div>
+  	<div id="registerResult" class="validationError"></div>
+  </form>
+</body>
+</html>
