@@ -337,7 +337,7 @@ function addContact()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("addContactResult").innerHTML = "Contact has been added";
-				//Actually change the html.
+				//Actually change the dom
 			}
 		};
 		xhr.send(jsonPayload);
