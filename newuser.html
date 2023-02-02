@@ -3,6 +3,8 @@
 <title>Sign Up Form</title>
 <link rel="stylesheet" href="css/newuser.css">
 <link rel="icon" href="images/ufo-website-icon.png" type="image/x-icon">
+<script type="text/javascript" src="js/code.js"></script> 
+
 </head>
     <body>
         
@@ -12,11 +14,11 @@
             <h1>New Contact</h1>
             <form>
             <i class="fa-solid fa-user-alien"></i>
-            <input type="text" class="input-box" placeholder="First Name">
-            <input type="text" class="input-box" placeholder="Last Name">
-            <input type="text" class="input-box" placeholder="000-000-0000">
-            <input type="text" class="input-box" placeholder="Email">
-            <button type="button" class="signup-btn">Add Contact</button>
+            <input type="text" class="input-box" id="contactFirstName" placeholder="First Name">
+            <input type="text" class="input-box" id="contactLastName" placeholder="Last Name">
+            <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000">
+            <input type="text" class="input-box" id="contactEmail" placeholder="Email">
+            <button type="button" id="addContactButton" onclick="addContact()" class="signup-btn">Add Contact</button>
             <button id="back-btn" type="button" class="back-btn">
                 <span class="button__text"></span>
                 <span class="button__icon"> 
@@ -24,6 +26,7 @@
                 </span>
             </button>
             </form>
+           <span id="addContactResult"></span>
         </div>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
