@@ -4,9 +4,29 @@
     <link href="css/loginregistration.css" rel="stylesheet">	
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link rel="icon" href="images/ufo-website-icon.png" type="image/x-icon">
-    <script type="text/javascript" src="js/md5.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () =>{
+        //Following code hides or shows the registration/login information.
+        const loginForm = document.querySelector("#loginDiv");
+        const createAccountForm = document.querySelector("#registerDiv");
+
+        
+        document.getElementById("signUpLink").addEventListener("click", e => {
+          e.preventDefault();
+          loginForm.classList.add("formHidden");
+          createAccountForm.classList.remove("formHidden");
+        });
+
+        document.getElementById("backToLoginButton").addEventListener("click", e =>{
+          loginForm.classList.remove("formHidden");
+          createAccountForm.classList.add("formHidden");
+        })
+      });
+    </script>
     <script type="text/javascript" src="js/code.js"></script>
 </head>
+
+
 
 <body>
   <h1 id="loginTitle">Greetings Earthling</h1>

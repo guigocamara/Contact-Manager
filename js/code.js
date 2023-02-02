@@ -1,24 +1,6 @@
 const urlBase = 'http://68.183.62.66///LAMPAPI';
 const extension = 'php';
 
-document.addEventListener("DOMContentLoaded", () =>{
-	//Following code hides or shows the registration/login information.
-	const loginForm = document.querySelector("#loginDiv");
-	const createAccountForm = document.querySelector("#registerDiv");
-
-	
-	document.querySelector("#signUpLink").addEventListener("click", e => {
-		e.preventDefault();
-		loginForm.classList.add("formHidden");
-		createAccountForm.classList.remove("formHidden");
-	});
-
-	document.querySelector("#backToLoginButton").addEventListener("click", e =>{
-		loginForm.classList.remove("formHidden");
-		createAccountForm.classList.add("formHidden");
-	})
-});
-
 function loginValidation(){
 	document.getElementById("loginUsernameError").innerHTML = "";
  	document.getElementById("loginPasswordError").innerHTML = "";
@@ -322,7 +304,7 @@ function addContact()
 	let email = document.getElementById("contactEmail").value;
 	document.getElementById("addContactResult").innerHTML = "";
 
-	let tmp = {FirstName:firstName, LastName:lastName, PhoneNumber: phoneNumber, Email:email, UserId:userId};
+	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/addCon.' + extension;
@@ -338,6 +320,22 @@ function addContact()
 			{
 				document.getElementById("addContactResult").innerHTML = "Contact has been added";
 				//Actually change the dom
+				const tableBody = document.getElementById("tableBody");
+				const tr = document.createElement("tr");
+				const td1 = document.createElement("td");
+				td1.innerHTML = firstName;
+				const td2 = document.createElement("td");
+				td2.innerHTML = lastName;
+				const td3 = document.createElement("td");
+				td3.innerHTML = phoneNumber;
+				const td4 = document.createElement("td");
+				td4.innerHTML = email;
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tr.appendChild(td4);
+				tableBody.appendChild(tr);
+				
 			}
 		};
 		xhr.send(jsonPayload);

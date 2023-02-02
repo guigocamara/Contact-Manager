@@ -2,11 +2,29 @@
     <head>
         <link rel="stylesheet" href="css/contacts.css">
         <link rel="icon" href="images/ufo-website-icon.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://kit.fontawesome.com/4841caa164.css" crossorigin="anonymous">
         <title>
             Contacts
         </title>
-        <script type="text/javascript" src="js/code.js"></script>  
+        <script>
+            document.addEventListener("DOMContentLoaded", () =>{
+                //Following code hides or shows the registration/login information.
+                const table = document.getElementById("table");
+                const addContactForm = document.getElementById("addContactForm");
+        
+                
+                document.getElementById("contact-btn").addEventListener("click", e => {
+                e.preventDefault();
+                    table.classList.add("formHidden");
+                    addContactForm.classList.remove("formHidden");
+                });
+        
+                document.getElementById("back-btn").addEventListener("click", e =>{
+                    table.classList.remove("formHidden");
+                    addContactForm.classList.add("formHidden");
+                })
+            });
+        </script>
+        <script type="text/javascript" src="js/code.js"></script>
 
         <!-- <script type="text/javascript">
         this is should be uncommented when put on the server
@@ -15,7 +33,7 @@
             readCookie();
         }, false);
         </script> -->
-        
+
     </head>
 
     <body>
@@ -32,7 +50,10 @@
                 <ion-icon name="log-out-outline"></ion-icon>
             </span>
         </button>
-        <table class="styled-table" width="90%" >
+
+
+
+        <table id="table" class="styled-table" width="90%">
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -42,12 +63,12 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr style="color: aliceblue;">
-                    <td>Dom</td>
-                    <td>Finch</td>
-                    <td>domfinch@hotmail.com</td>
-                    <td>670-846-2625</td>
+            <tbody id="tableBody">
+                <tr id="tabletr" style="color: aliceblue;">
+                    <td id="tableFirstName">Dom</td>
+                    <td id="tableLastName">Finch</td>
+                    <td id="tableEmail">domfinch@hotmail.com</td>
+                    <td id="tablePhoneNumber">670-846-2625</td>
                     <td>
                         <button id="delete-btn" type="button" class="btn">
                             <span class="button__text"></span>
@@ -71,6 +92,31 @@
                 
             </tbody>
         </table>
+
+
+
+        
+        <div id="addContactForm" class="sign-up-form formHidden">
+            <img src="images/alien-user-icon.png">
+            <h1>New Contact</h1>
+            <form>
+            <i class="fa-solid fa-user-alien"></i>
+            <input type="text" class="input-box" id="contactFirstName" placeholder="First Name">
+            <input type="text" class="input-box" id="contactLastName" placeholder="Last Name">
+            <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000">
+            <input type="text" class="input-box" id="contactEmail" placeholder="Email">
+            <button type="button" id="addContactButton" onclick="addContact()" class="signup-btn">Add Contact</button>
+            <button id="back-btn" type="button" class="back-btn">
+                <span class="button__text"></span>
+                <span class="button__icon"> 
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </span>
+            </button>
+            </form>
+           <span id="addContactResult"></span>
+        </div>
+
+
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </body>
