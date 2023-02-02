@@ -10,8 +10,8 @@
                 //Following code hides or shows the registration/login information.
                 const table = document.getElementById("table");
                 const addContactForm = document.getElementById("addContactForm");
-        
                 
+
                 document.getElementById("contact-btn").addEventListener("click", e => {
                 e.preventDefault();
                     table.classList.add("formHidden");
@@ -22,7 +22,9 @@
                     table.classList.remove("formHidden");
                     addContactForm.classList.add("formHidden");
                 });
-            });
+
+                searchContacts();
++            });
         </script>
         <script type="text/javascript" src="js/code.js"></script>
 
