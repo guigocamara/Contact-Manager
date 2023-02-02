@@ -304,7 +304,7 @@ function addContact()
 	let lastName = document.getElementById("contactLastName").value;
 	let phoneNumber = document.getElementById("contactPhoneNumber").value;
 	let email = document.getElementById("contactEmail").value;
-	document.getElementById("addContactResult").innerHTML = "";
+	document.getElementById("addContactResult").innerHTML = "";``
 
 	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );
@@ -320,6 +320,10 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				// clears fields in contact box
+				document.getElementById("contact-form").reset();
+				// puts contact box away
+				
 				searchContacts();
 			}
 		};
@@ -329,6 +333,8 @@ function addContact()
 	{
 		document.getElementById("addContactResult").innerHTML = err.message;
 	}
+
+
 	
 }
 
@@ -340,6 +346,10 @@ function deleteContact(i){
 	let lastName = document.getElementById("tableLastName"+i).innerHTML;
 	console.log(firstName);
 	console.log(lastName);
+
+	let check = confirm("Are you sure you want to delete contact: " + firstName + ' ' + lastName);
+	if (check === false )
+		return; // exit function (contact doesn't get deleted)
 
 	let tmp = {FirstName:firstName, LastName:lastName, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );

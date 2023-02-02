@@ -23,6 +23,11 @@
                     addContactForm.classList.add("formHidden");
                 });
 
+
+                // document.getElementById("edit-btn").addEventListener("click", e => {
+                    
+                // });
+
                 searchContacts();
             });
         </script>
@@ -46,7 +51,7 @@
                 <ion-icon name="person-add-outline"></ion-icon>
             </span>
         </button>
-        <button id="logout-btn" type="button" class="logout-btn">
+        <button onclick="doLogout()" id="logout-btn" type="button" class="logout-btn">
             <span class="button__text"></span>
             <span class="button__icon">
                 <ion-icon name="log-out-outline"></ion-icon>
@@ -75,19 +80,19 @@
         <div id="addContactForm" class="sign-up-form formHidden">
             <img src="images/alien-user-icon.png">
             <h1>New Contact</h1>
-            <form>
-            <i class="fa-solid fa-user-alien"></i>
-            <input type="text" class="input-box" id="contactFirstName" placeholder="First Name">
-            <input type="text" class="input-box" id="contactLastName" placeholder="Last Name">
-            <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000">
-            <input type="text" class="input-box" id="contactEmail" placeholder="Email">
-            <button type="button" id="addContactButton" onclick="addContact()" class="signup-btn">Add Contact</button>
-            <button id="back-btn" type="button" class="back-btn">
-                <span class="button__text"></span>
-                <span class="button__icon"> 
-                    <ion-icon name="arrow-back-outline"></ion-icon>
-                </span>
-            </button>
+            <form id="contact-form">
+                <i class="fa-solid fa-user-alien"></i>
+                <input type="text" class="input-box" id="contactFirstName" placeholder="First Name">
+                <input type="text" class="input-box" id="contactLastName" placeholder="Last Name">
+                <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000">
+                <input type="text" class="input-box" id="contactEmail" placeholder="Email">
+                <button type="button" id="addContactButton" onclick="addContact()" class="signup-btn">Add Contact</button>
+                <button id="back-btn" type="button" class="back-btn">
+                    <span class="button__text"></span>
+                    <span class="button__icon"> 
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                    </span>
+                </button>
             </form>
            <span id="addContactResult"></span>
         </div>

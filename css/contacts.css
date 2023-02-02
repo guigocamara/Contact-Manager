@@ -5,6 +5,10 @@ body
     background-position: center;
 }
 
+.formHidden{
+    display: none !important;
+}
+
 .input-box
 {
     border-radius: 20px;
@@ -90,6 +94,10 @@ body
     background-color: #f3f3f3;
 }
 
+.styled-table tbody tr:nth-of-type(odd) {
+    background-color: lightgray;
+}
+
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #00a566;
 }
@@ -101,5 +109,68 @@ body
 
 .styled-table table
 {
-    border: 1px;
+    border: 1px white;
+}
+
+.sign-up-form
+{
+    width: 25%;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+    background: #fff;
+    padding: 20px;
+    margin: 8% auto 0;
+    text-align: center;
+    border-radius: 10px;
+    opacity: 0.9;
+}
+
+.input-box
+{
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border: 1px solid #999;
+    outline: none;
+}
+
+.sign-up-form h1
+{
+    color: #00a566;
+    margin-bottom: 30px;
+}
+
+.signup-btn
+{
+    color: #00a566;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    /* border: none; */
+    outline: none;
+    cursor: pointer;
+    border-color: #00a566;
+}
+
+.back-btn
+{
+    color: #00a566;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    /* border: none; */
+    outline: none;
+    cursor: pointer;
+    border-color: #00a566;
+    /* margin-right: 200px; */
+}
+
+img
+{
+    width: 80px;
+    margin-top: -50px;
 }
