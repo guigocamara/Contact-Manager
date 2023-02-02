@@ -1,4 +1,4 @@
-const urlBase = 'http://68.183.62.66///LAMPAPI';
+const urlBase = 'http://spacecontacts.online///LAMPAPI';
 const extension = 'php';
 
 function loginValidation(){
@@ -320,34 +320,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("addContactResult").innerHTML = "Contact has been added";
-				//Actually change the dom
-				const tableBody = document.getElementById("tableBody");
-				const tr = document.createElement("tr");
-				tr.setAttribute("id", "tr"+globalContactsCounter);
-				tr.innerHTML = `
-				<td id="tableFirstName${globalContactsCounter}">${firstName}</td>
-				<td id="tableLastName${globalContactsCounter}">${lastName}</td>
-				<td id="tableEmail${globalContactsCounter}">${email}</td>
-				<td id="tablePhoneNumber${globalContactsCounter}">${phoneNumber}</td>
-				<td>
-					<button id="deleteButton${globalContactsCounter}" type="button" class="btn" onclick='deleteContact(${globalContactsCounter})'>
-						<span class="button__text"></span>
-						<span class="button__icon">
-							<ion-icon name="trash-outline"></ion-icon>
-						</span>
-					</button>
 
-					<button id="edit-btn" type="button" class="btn">
-						<span class="button__text"></span>
-						<span class="button__icon">
-							<ion-icon name="create-outline"></ion-icon>
-						</span>
-					</button>
-				</td>
-				`
-				tableBody.appendChild(tr);
-				globalContactsCounter++;
 				
 			}
 		};
@@ -361,10 +334,10 @@ function addContact()
 }
 
 function deleteContact(i){
-	console.log("tableFirstName" + i);
-	//Need to get the first and last name from the current object
-	let firstName = document.getElementById("tableFirstName"+i).innerHTML;
-	let lastName = document.getElementById("tableLastName"+i).innerHTML;
+	// console.log("tableFirstName" + i);
+	// //Need to get the first and last name from the current object
+	// let firstName = document.getElementById("tableFirstName"+i).innerHTML;
+	// let lastName = document.getElementById("tableLastName"+i).innerHTML;
 
 	let tmp = {firstName:firstName, lastName:lastName, userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
@@ -380,18 +353,91 @@ function deleteContact(i){
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let parent = document.getElementById("tableBody");
-				let child = document.getElementById("tr"+i);
-				parent.removeChild(child);
 				console.log("contact deleted");				
+			}
+		};
+		xhr.send(jsonPayload);
+		searchContacts();
+	}
+	catch(err)
+	{
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
+}
+
+//if it is empty, display all, otherwise just display some.
+function searchContacts()
+{
+	let srch = document.getElementById("searchBox").value;
+	
+	let contactList = "";
+
+	let tmp = {search:srch,userId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/searchCon.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				console.log(jsonObject);
+				const tableBody = document.getElementById("tableBody");
+				tableBody.innerHTML = "";
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					let firstName = jsonObject.results[i].FirstName;
+					let lastName = jsonObject.results[i].LastName;
+					let phoneNumber = jsonObject.results[i].Phone;
+					let email = jsonObject.results[i].Email;
+					//Actually change the dom
+
+					if( i < jsonObject.results.length - 1 )
+					{
+						const tr = document.createElement("tr");
+						tr.setAttribute("id", "tr");
+						tr.innerHTML = `
+						<td id="tableFirstName">${firstName}</td>
+						<td id="tableLastName">${lastName}</td>
+						<td id="tableEmail">${email}</td>
+						<td id="tablePhoneNumber">${phoneNumber}</td>
+						<td>
+							<button id="deleteButton" type="button" class="btn" onclick='deleteContact()'>
+								<span class="button__text"></span>
+								<span class="button__icon">
+									<ion-icon name="trash-outline"></ion-icon>
+								</span>
+							</button>
+
+							<button id="edit-btn" type="button" class="btn">
+								<span class="button__text"></span>
+								<span class="button__icon">
+									<ion-icon name="create-outline"></ion-icon>
+								</span>
+							</button>
+						</td>
+						`
+						contactList += tr;
+						tableBody.appendChild(tr);
+					}
+					
+				}
+				
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("addContactResult").innerHTML = err.message;
+		console.log("Search error");
 	}
+	
 }
 
 // function addColor()
