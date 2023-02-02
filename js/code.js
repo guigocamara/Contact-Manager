@@ -341,7 +341,7 @@ function deleteContact(i){
 	console.log(firstName);
 	console.log(lastName);
 
-	let tmp = {firstName:firstName, lastName:lastName, userId:userId};
+	let tmp = {FirstName:firstName, LastName:lastName, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/deleteCon.' + extension;
