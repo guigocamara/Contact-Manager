@@ -296,6 +296,8 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
+var globalContactsCounter = 1;
+
 function addContact()
 {
 	let firstName = document.getElementById("contactFirstName").value;
@@ -322,19 +324,30 @@ function addContact()
 				//Actually change the dom
 				const tableBody = document.getElementById("tableBody");
 				const tr = document.createElement("tr");
-				const td1 = document.createElement("td");
-				td1.innerHTML = firstName;
-				const td2 = document.createElement("td");
-				td2.innerHTML = lastName;
-				const td3 = document.createElement("td");
-				td3.innerHTML = phoneNumber;
-				const td4 = document.createElement("td");
-				td4.innerHTML = email;
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-				tr.appendChild(td3);
-				tr.appendChild(td4);
+				tr.setAttribute("id", "tr"+globalContactsCounter);
+				tr.innerHTML = `
+				<td id="tableFirstName${globalContactsCounter}">${firstName}</td>
+				<td id="tableLastName${globalContactsCounter}">${lastName}</td>
+				<td id="tableEmail${globalContactsCounter}">${email}</td>
+				<td id="tablePhoneNumber${globalContactsCounter}">${phoneNumber}</td>
+				<td>
+					<button id="deleteButton${globalContactsCounter}" type="button" class="btn" onclick='deleteContact(${globalContactsCounter})'>
+						<span class="button__text"></span>
+						<span class="button__icon">
+							<ion-icon name="trash-outline"></ion-icon>
+						</span>
+					</button>
+
+					<button id="edit-btn" type="button" class="btn">
+						<span class="button__text"></span>
+						<span class="button__icon">
+							<ion-icon name="create-outline"></ion-icon>
+						</span>
+					</button>
+				</td>
+				`
 				tableBody.appendChild(tr);
+				globalContactsCounter++;
 				
 			}
 		};
@@ -345,6 +358,40 @@ function addContact()
 		document.getElementById("addContactResult").innerHTML = err.message;
 	}
 	
+}
+
+function deleteContact(i){
+	console.log("tableFirstName" + i);
+	//Need to get the first and last name from the current object
+	let firstName = document.getElementById("tableFirstName"+i).innerHTML;
+	let lastName = document.getElementById("tableLastName"+i).innerHTML;
+
+	let tmp = {firstName:firstName, lastName:lastName, userId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/deleteCon.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let parent = document.getElementById("tableBody");
+				let child = document.getElementById("tr"+i);
+				parent.removeChild(child);
+				console.log("contact deleted");				
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
 }
 
 // function addColor()
