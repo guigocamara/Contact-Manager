@@ -1,4 +1,4 @@
-const urlBase = 'http://68.183.62.66///LAMPAPI';
+const urlBase = 'http://spacecontacts.online///LAMPAPI';
 const extension = 'php';
 
 function loginValidation(){
