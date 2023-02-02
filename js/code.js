@@ -320,8 +320,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-
-				
+				searchContacts();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -336,8 +335,11 @@ function addContact()
 function deleteContact(i){
 	// console.log("tableFirstName" + i);
 	// //Need to get the first and last name from the current object
-	// let firstName = document.getElementById("tableFirstName"+i).innerHTML;
-	// let lastName = document.getElementById("tableLastName"+i).innerHTML;
+	console.log(i);
+	let firstName = document.getElementById("tableFirstName"+i).innerHTML;
+	let lastName = document.getElementById("tableLastName"+i).innerHTML;
+	console.log(firstName);
+	console.log(lastName);
 
 	let tmp = {firstName:firstName, lastName:lastName, userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
@@ -353,11 +355,11 @@ function deleteContact(i){
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				console.log("contact deleted");				
+				console.log("contact deleted");	
+				searchContacts();			
 			}
 		};
 		xhr.send(jsonPayload);
-		searchContacts();
 	}
 	catch(err)
 	{
@@ -398,17 +400,17 @@ function searchContacts()
 					let email = jsonObject.results[i].Email;
 					//Actually change the dom
 
-					if( i < jsonObject.results.length - 1 )
+					if( i < jsonObject.results.length)
 					{
 						const tr = document.createElement("tr");
 						tr.setAttribute("id", "tr");
 						tr.innerHTML = `
-						<td id="tableFirstName">${firstName}</td>
-						<td id="tableLastName">${lastName}</td>
+						<td id="tableFirstName${i}">${firstName}</td>
+						<td id="tableLastName${i}">${lastName}</td>
 						<td id="tableEmail">${email}</td>
 						<td id="tablePhoneNumber">${phoneNumber}</td>
 						<td>
-							<button id="deleteButton" type="button" class="btn" onclick='deleteContact()'>
+							<button id="deleteButton" type="button" class="btn" onclick='deleteContact(${i})'>
 								<span class="button__text"></span>
 								<span class="button__icon">
 									<ion-icon name="trash-outline"></ion-icon>
