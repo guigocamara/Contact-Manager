@@ -97,6 +97,86 @@ function registerValidation(){
 	}
 }
 
+function addContactValidation(){
+	const contactFirstNameError = document.getElementById("contactFirstNameError");
+	const contactLastNameError = document.getElementById("contactLastNameError");
+	const contactPhoneNumberError = document.getElementById("contactPhoneNumberError");
+	const contactEmailError = document.getElementById("contactEmailError");
+	const contactFirstName = document.getElementById("contactFirstName").value;
+	const contactLastName = document.getElementById("contactLastName").value;
+	const contactPhoneNumber = document.getElementById("contactPhoneNumber").value;
+	const contactEmail = document.getElementById("contactEmail").value;
+
+	var startLetter = /^[A-Za-z]/g;
+	var betweenLetters = /^[A-Za-z0-9]*$/g;
+	var totalRegexName = /^[a-z ,.'-]+$/i
+	var totalRegexPhone = /^\d+$/g
+	var totalRegexEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+	let resultfirstname = false;
+	let resultlastname = false;
+	let resultphonenumber = false;
+	let resultemail = false;
+
+
+	//Validate first name
+	if(contactFirstName.match(totalRegexName)){
+		contactFirstNameError.innerHTML = "";
+		resultfirstname = true;
+	}else if(contactFirstName.length == 0){
+		contactFirstNameError.innerHTML = "";
+	}else{
+		if(!contactFirstName.match(totalRegexName)){
+			contactFirstNameError.innerHTML = "Please enter a valid first name";
+		}
+	}
+
+	
+	//Validate last name
+	if(contactLastName.match(totalRegexName)){
+		contactLastNameError.innerHTML = "";
+		resultlastname = true;
+	}else if(contactLastName.length == 0){
+		contactLastNameError.innerHTML = "";
+	}else{
+		if(!contactLastName.match(totalRegexName)){
+			contactLastNameError.innerHTML = "Please enter a valid last name";
+		}
+	}
+
+	//Validate phone number
+	if(contactPhoneNumber.match(totalRegexPhone)){
+		contactPhoneNumberError.innerHTML = "";
+		resultphonenumber = true;
+	}else if(contactPhoneNumber.length == 0){
+		contactPhoneNumberError.innerHTML = "";
+	}else{
+		if(!contactPhoneNumber.match(totalRegexPhone)){
+			contactPhoneNumberError.innerHTML = "Please enter a valid phone number";
+		}
+	}
+
+	//Validate email
+	if(contactEmail.match(totalRegexEmail)){
+		contactEmailError.innerHTML = "";
+		resultemail= true;
+	}else if(contactEmail.length == 0){
+		contactEmailError.innerHTML = "";
+	}else{
+		if(!contactEmail.match(totalRegexEmail)){
+			contactEmailError.innerHTML = "Please enter a valid email address";
+		}
+	}
+
+
+
+
+
+	if(resultemail && resultphonenumber && resultfirstname && resultlastname){
+		return(true);
+	}else{
+		return(false);
+	}
+}
 
 let userId = 0;
 let firstName = "";
@@ -283,7 +363,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		//document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
 
@@ -300,41 +380,59 @@ var globalContactsCounter = 1;
 
 function addContact()
 {
-	let firstName = document.getElementById("contactFirstName").value;
-	let lastName = document.getElementById("contactLastName").value;
-	let phoneNumber = document.getElementById("contactPhoneNumber").value;
-	let email = document.getElementById("contactEmail").value;
-	document.getElementById("addContactResult").innerHTML = "";``
+	if(document.getElementById("contactFirstName").value.length == 0 || document.getElementById("contactLastName").value.length == 0 || document.getElementById("contactPhoneNumber").value.length == 0 || document.getElementById("contactEmail").value.length == 0){
+		if(document.getElementById("contactFirstName").value.length == 0){
+			document.getElementById("contactFirstNameError").innerHTML = "Please enter a First Name!";
+		}
 
-	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+		if(document.getElementById("contactLastName").value.length == 0){
+			document.getElementById("contactLastNameError").innerHTML = "Please enter a Last Name!";
+		}
 
-	let url = urlBase + '/addCon.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
+		if(document.getElementById("contactPhoneNumber").value.length == 0){
+			document.getElementById("contactPhoneNumberError").innerHTML = "Please enter a Phone Number!";
+		}
+
+		if(document.getElementById("contactEmail").value.length == 0){
+			document.getElementById("contactEmailError").innerHTML = "Please enter a email!";
+		}
+		
+	}else if(addContactValidation() == true){
+		let firstName = document.getElementById("contactFirstName").value;
+		let lastName = document.getElementById("contactLastName").value;
+		let phoneNumber = document.getElementById("contactPhoneNumber").value;
+		let email = document.getElementById("contactEmail").value;
+		document.getElementById("addContactResult").innerHTML = "";``
+
+		let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
+		let jsonPayload = JSON.stringify( tmp );
+
+		let url = urlBase + '/addCon.' + extension;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			xhr.onreadystatechange = function() 
 			{
-				// clears fields in contact box
-				document.getElementById("contact-form").reset();
-				// puts contact box away
-				
-				searchContacts();
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("addContactResult").innerHTML = err.message;
-	}
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					// clears fields in contact box
+					document.getElementById("contact-form").reset();
+					// puts contact box away
+					
+					searchContacts();
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("addContactResult").innerHTML = err.message;
+		}
 
-
+	}
 	
 }
 

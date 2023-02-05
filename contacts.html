@@ -23,13 +23,13 @@
                     addContactForm.classList.add("formHidden");
                 });
 
+                readCookie();
                 searchContacts();
             });
         </script>
         <script type="text/javascript" src="js/code.js"></script>
-
-        <!-- <script type="text/javascript">
-        this is should be uncommented when put on the server
+<!-- 
+        <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() 
         {
             readCookie();
@@ -77,10 +77,14 @@
             <h1>New Contact</h1>
             <form id="contact-form">
                 <i class="fa-solid fa-user-alien"></i>
-                <input type="text" class="input-box" id="contactFirstName" placeholder="First Name">
-                <input type="text" class="input-box" id="contactLastName" placeholder="Last Name">
-                <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000">
-                <input type="text" class="input-box" id="contactEmail" placeholder="Email">
+                <input type="text" class="input-box" id="contactFirstName" placeholder="First Name" onkeyup="addContactValidation()">
+                <div id="contactFirstNameError" class="validationError"></div>
+                <input type="text" class="input-box" id="contactLastName" placeholder="Last Name" onkeyup="addContactValidation()">
+                <div id="contactLastNameError" class="validationError"></div>
+                <input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000" onkeyup="addContactValidation()">
+                <div id="contactPhoneNumberError" class="validationError"></div>
+                <input type="text" class="input-box" id="contactEmail" placeholder="Email" onkeyup="addContactValidation()">
+                <div id="contactEmailError" class="validationError"></div>
                 <button type="button" id="addContactButton" onclick="addContact()" class="signup-btn">Add Contact</button>
                 <button id="back-btn" type="button" class="back-btn">
                     <span class="button__text"></span>
