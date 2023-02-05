@@ -195,56 +195,65 @@ function doLogin()
 		}
 	}else{
 		userId = 0;
-	firstName = "";
-	lastName = "";
-	
-	let login = document.getElementById("loginUsername").value;
-	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
-	document.getElementById("loginResult").innerHTML = "";
+		firstName = "";
+		lastName = "";
+		
+		let login = document.getElementById("loginUsername").value;
+		let password = document.getElementById("loginPassword").value;
+	//	var hash = md5( password );
+		document.getElementById("loginResult").innerHTML = "";
 
-	
-	let tmp = {login:login,password:password};
-//	var tmp = {login:login,password:hash};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/Login.' + extension;
+		
+		let tmp = {login:login,password:password};
+	//	var tmp = {login:login,password:hash};
+		let jsonPayload = JSON.stringify( tmp );
+		
+		let url = urlBase + '/Login.' + extension;
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			xhr.onreadystatechange = function() 
 			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
-				if( userId < 1 )
-				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-					return;
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					userId = jsonObject.id;
+			
+					if( userId < 1 )
+					{		
+						document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+						return;
+					}
+			
+					firstName = jsonObject.firstName;
+					lastName = jsonObject.lastName;
+
+					saveCookie();
+
+					displayLaser();
+					setTimeout(() => {  window.location.href = "contacts.html"; }, 700);
+
 				}
-		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-
-				window.location.href = "contacts.html";
+			};
+			xhr.send(jsonPayload);
 			}
-		};
-		xhr.send(jsonPayload);
+			catch(err)
+			{
+				document.getElementById("loginResult").innerHTML = err.message;
+			}
 		}
-		catch(err)
-		{
-			document.getElementById("loginResult").innerHTML = err.message;
-		}
-	}
 	
+}
 
+function displayLaser(){
+	console.log("trigger");
+	document.getElementById("ufo").style.zIndex = "20";
+	document.getElementById("ufo").style.position = "relative";
+	document.getElementById("ufo").style.transform = "scale(20,10)";
+	document.getElementById("ufo").style.transitionDuration = "1s";
 }
 
 function doRegistration(){
