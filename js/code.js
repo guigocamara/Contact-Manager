@@ -417,8 +417,8 @@ function searchContacts()
 						tr.innerHTML = `
 						<td id="tableFirstName${i}">${firstName}</td>
 						<td id="tableLastName${i}">${lastName}</td>
-						<td id="tableEmail">${email}</td>
-						<td id="tablePhoneNumber">${phoneNumber}</td>
+						<td id="tableEmail${i}">${email}</td>
+						<td id="tablePhoneNumber${i}">${phoneNumber}</td>
 						<td>
 							<button id="deleteButton" type="button" class="btn" onclick='deleteContact(${i})'>
 								<span class="button__text"></span>
@@ -427,7 +427,7 @@ function searchContacts()
 								</span>
 							</button>
 
-							<button id="edit-btn" type="button" class="btn">
+							<button id="edit-btn" type="button" class="btn" onclick='editContact(${i})'>
 								<span class="button__text"></span>
 								<span class="button__icon">
 									<ion-icon name="create-outline"></ion-icon>
@@ -450,6 +450,89 @@ function searchContacts()
 		console.log("Search error");
 	}
 	
+}
+
+
+function updateContact(firstName, lastName, phoneNumber, email) 
+{
+
+	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/addCon.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				// clears fields in contact box
+				
+				// puts contact box away
+				
+				//searchContacts();
+				console.log("djfkajfk");
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
+	
+}
+
+
+function editContact(i) 
+{	
+
+	const table = document.getElementById("table");
+
+	
+	let firstName = document.getElementById("tableFirstName"+i).innerHTML
+	let lastName = document.getElementById("tableLastName"+i).innerHTML;
+	let phoneNumber = document.getElementById("tablePhoneNumber"+i).innerHTML;
+	let email = document.getElementById("tableEmail"+i).innerHTML;
+
+	const addContactForm = document.createElement('div');
+	addContactForm.setAttribute("class", "sign-up-form formHidden");
+	addContactForm.innerHTML =
+	`<img src="images/alien-user-icon.png">
+		<h1>Edit Contact</h1>
+		<form id="contact-form">
+			<i class="fa-solid fa-user-alien"></i>
+			<input type="text" class="input-box" id="contactFirstName" placeholder="First Name" value=${firstName}>
+			<input type="text" class="input-box" id="contactLastName" placeholder="Last Name" value=${lastName}>
+			<input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000" value=${phoneNumber}>
+			<input type="text" class="input-box" id="contactEmail" placeholder="Email" value=${email}>
+			<button type="button" id="addContactButton" onclick="updateContact(${firstName}, ${lastName}, ${phoneNumber}, ${email})" class="signup-btn">Update Contact</button>
+			<button id="back-btn" type="button" class="back-btn" >
+				<span class="button__text"></span>
+				<span class="button__icon"> 
+					<ion-icon name="arrow-back-outline"></ion-icon>
+				</span>
+			</button>
+		</form>
+		<span id="addContactResult"></span>
+	`;
+
+	document.body.appendChild(addContactForm);
+	
+	table.classList.add("formHidden");
+	addContactForm.classList.remove("formHidden");
+	
+	
+	//searchContacts();
+	// populate field with existing information
+
+
+	// when user clicks button, update database and table
+
 }
 
 // function addColor()
