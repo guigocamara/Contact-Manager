@@ -582,10 +582,10 @@ function editContact(i)
 			<h1>Edit Contact</h1>
 			<form id="contact-form">
 			<i class="fa-solid fa-user-alien"></i>
-				<input type="text" class="input-box" id="contactFirstName" placeholder=${firstName}>
-				<input type="text" class="input-box" id="contactLastName" placeholder=${lastName}>
-				<input type="text" class="input-box" id="contactPhoneNumber" placeholder=${phoneNumber}>
-				<input type="text" class="input-box" id="contactEmail" placeholder=${email}>
+				<input type="text" class="input-box" id="editcontactFirstName" placeholder=${firstName}>
+				<input type="text" class="input-box" id="editcontactLastName" placeholder=${lastName}>
+				<input type="text" class="input-box" id="editcontactPhoneNumber" placeholder=${phoneNumber}>
+				<input type="text" class="input-box" id="editcontactEmail" placeholder=${email}>
 				<button type="button" id="addContactButton" onclick="updateContact()" class="signup-btn">Update Contact</button>
 				<button id="back-btn" type="button" class="back-btn" onclick="backButton()">
 					<span class="button__text"></span>
@@ -602,23 +602,22 @@ function editContact(i)
 	table.classList.add("formHidden");
 	editContactForm.classList.remove("formHidden");
 	
-	
-	
 }
 
 function updateContact() 
 {
 	
-	let firstName = document.getElementById("contactFirstName").value;
-	let lastName = document.getElementById("contactLasttName").value;
-	let phoneNumber = document.getElementById("contactPhoneNumber").value;
-	let email = document.getElementById("contactEmail").value;
-	document.getElementById("editContactResult").innerHTML = "";``
+	let firstName = document.getElementById("editcontactFirstName").value;
+	let lastName = document.getElementById("editcontactLastName").value;
+	let phoneNumber = document.getElementById("editcontactPhoneNumber").value;
+	let email = document.getElementById("editcontactEmail").value;
+	//document.getElementById("editContactResult").innerHTML = "";``
 
 	console.log(firstName);
 	console.log(lastName);
 	console.log(phoneNumber);
 	console.log(email);
+	console.log(userId);
 
 	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );
@@ -644,15 +643,22 @@ function updateContact()
 		document.getElementById("editContactResult").innerHTML = err.message;
 	}
 
+
+
 }
 
-function backButton(table)
+function backButton()
 {
 	console.log("gets in");
 	editContactForm.classList.add("formHidden");
 	table.classList.remove("formHidden");
 	console.log("gets out");
 }
+
+
+
+
+
 // function addColor()
 // {
 	// 	let newColor = document.getElementById("colorText").value;
