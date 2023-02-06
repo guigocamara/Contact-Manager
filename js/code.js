@@ -560,13 +560,22 @@ function searchContacts()
 }
 
 
-function updateContact(firstName, lastName, phoneNumber, email) 
+function updateContact(i) 
 {
+	let firstName = document.getElementById("contactFirstName"+i).value;
+	let lastName = document.getElementById("contactLasttName"+i).value;
+	let phoneNumber = document.getElementById("contactPhoneNumber"+i).value;
+	let email = document.getElementById("contactEmail"+i).value;
+
+	console.log(firstName);
+	console.log(lastName);
+	console.log(phoneNumber);
+	console.log(email);
 
 	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/addCon.' + extension;
+	let url = urlBase + '/updateCon.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -594,6 +603,11 @@ function updateContact(firstName, lastName, phoneNumber, email)
 	
 }
 
+function backButton()
+{
+
+}
+
 
 function editContact(i) 
 {	
@@ -606,39 +620,34 @@ function editContact(i)
 	let phoneNumber = document.getElementById("tablePhoneNumber"+i).innerHTML;
 	let email = document.getElementById("tableEmail"+i).innerHTML;
 
+
 	const addContactForm = document.createElement('div');
 	addContactForm.setAttribute("class", "sign-up-form formHidden");
 	addContactForm.innerHTML =
-	`<img src="images/alien-user-icon.png">
-		<h1>Edit Contact</h1>
-		<form id="contact-form">
-			<i class="fa-solid fa-user-alien"></i>
-			<input type="text" class="input-box" id="contactFirstName" placeholder="First Name" value=${firstName}>
-			<input type="text" class="input-box" id="contactLastName" placeholder="Last Name" value=${lastName}>
-			<input type="text" class="input-box" id="contactPhoneNumber" placeholder="000-000-0000" value=${phoneNumber}>
-			<input type="text" class="input-box" id="contactEmail" placeholder="Email" value=${email}>
-			<button type="button" id="addContactButton" onclick="updateContact(${firstName}, ${lastName}, ${phoneNumber}, ${email})" class="signup-btn">Update Contact</button>
-			<button id="back-btn" type="button" class="back-btn" >
-				<span class="button__text"></span>
-				<span class="button__icon"> 
-					<ion-icon name="arrow-back-outline"></ion-icon>
-				</span>
-			</button>
-		</form>
-		<span id="addContactResult"></span>
+	` <img src="images/alien-user-icon.png">
+			<h1>Edit Contact</h1>
+			<form id="contact-form">
+				<i class="fa-solid fa-user-alien"></i>
+				<input type="text" class="input-box" id="contactFirstName" placeholder=${firstName}>
+				<input type="text" class="input-box" id="contactLastName" placeholder=${lastName}>
+				<input type="text" class="input-box" id="contactPhoneNumber" placeholder=${phoneNumber}>
+				<input type="text" class="input-box" id="contactEmail" placeholder=${email}>
+				<button type="button" id="addContactButton" onclick="updateContact(${i})" class="signup-btn">Update Contact</button>
+				<button id="back-btn" type="button" class="back-btn">
+					<span class="button__text"></span>
+					<span class="button__icon"> 
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</span>
+				</button>
+			</form>
+	<span id="addContactResult"></span>	
 	`;
 
 	document.body.appendChild(addContactForm);
 	
 	table.classList.add("formHidden");
 	addContactForm.classList.remove("formHidden");
-	
-	
-	//searchContacts();
-	// populate field with existing information
 
-
-	// when user clicks button, update database and table
 
 }
 
