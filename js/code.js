@@ -560,12 +560,60 @@ function searchContacts()
 }
 
 
-function updateContact(i) 
+
+
+function editContact(i) 
+{	
+	
+	const table = document.getElementById("table");
+	
+	
+	let firstName = document.getElementById("tableFirstName"+i).innerHTML
+	let lastName = document.getElementById("tableLastName"+i).innerHTML;
+	let phoneNumber = document.getElementById("tablePhoneNumber"+i).innerHTML;
+	let email = document.getElementById("tableEmail"+i).innerHTML;
+	
+
+	const editContactForm = document.createElement('div');
+	editContactForm.setAttribute("id", "editContactForm");
+	editContactForm.setAttribute("class", "sign-up-form formHidden");
+	editContactForm.innerHTML =
+	` <img src="images/alien-user-icon.png">
+			<h1>Edit Contact</h1>
+			<form id="contact-form">
+			<i class="fa-solid fa-user-alien"></i>
+				<input type="text" class="input-box" id="contactFirstName" placeholder=${firstName}>
+				<input type="text" class="input-box" id="contactLastName" placeholder=${lastName}>
+				<input type="text" class="input-box" id="contactPhoneNumber" placeholder=${phoneNumber}>
+				<input type="text" class="input-box" id="contactEmail" placeholder=${email}>
+				<button type="button" id="addContactButton" onclick="updateContact()" class="signup-btn">Update Contact</button>
+				<button id="back-btn" type="button" class="back-btn" onclick="backButton()">
+					<span class="button__text"></span>
+					<span class="button__icon"> 
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</span>
+				</button>
+			</form>
+	<span id="editContactResult"></span>	
+	`;
+	
+	document.body.appendChild(editContactForm);
+	
+	table.classList.add("formHidden");
+	editContactForm.classList.remove("formHidden");
+	
+	
+	
+}
+
+function updateContact() 
 {
-	let firstName = document.getElementById("contactFirstName"+i).value;
-	let lastName = document.getElementById("contactLasttName"+i).value;
-	let phoneNumber = document.getElementById("contactPhoneNumber"+i).value;
-	let email = document.getElementById("contactEmail"+i).value;
+	
+	let firstName = document.getElementById("contactFirstName").value;
+	let lastName = document.getElementById("contactLasttName").value;
+	let phoneNumber = document.getElementById("contactPhoneNumber").value;
+	let email = document.getElementById("contactEmail").value;
+	document.getElementById("editContactResult").innerHTML = "";``
 
 	console.log(firstName);
 	console.log(lastName);
@@ -586,76 +634,30 @@ function updateContact(i)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// clears fields in contact box
-				
-				// puts contact box away
-				
-				//searchContacts();
-				console.log("djfkajfk");
+				searchContacts();
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("addContactResult").innerHTML = err.message;
+		document.getElementById("editContactResult").innerHTML = err.message;
 	}
-	
+
 }
 
-function backButton()
+function backButton(table)
 {
-
+	console.log("gets in");
+	editContactForm.classList.add("formHidden");
+	table.classList.remove("formHidden");
+	console.log("gets out");
 }
-
-
-function editContact(i) 
-{	
-
-	const table = document.getElementById("table");
-
-	
-	let firstName = document.getElementById("tableFirstName"+i).innerHTML
-	let lastName = document.getElementById("tableLastName"+i).innerHTML;
-	let phoneNumber = document.getElementById("tablePhoneNumber"+i).innerHTML;
-	let email = document.getElementById("tableEmail"+i).innerHTML;
-
-
-	const addContactForm = document.createElement('div');
-	addContactForm.setAttribute("class", "sign-up-form formHidden");
-	addContactForm.innerHTML =
-	` <img src="images/alien-user-icon.png">
-			<h1>Edit Contact</h1>
-			<form id="contact-form">
-				<i class="fa-solid fa-user-alien"></i>
-				<input type="text" class="input-box" id="contactFirstName" placeholder=${firstName}>
-				<input type="text" class="input-box" id="contactLastName" placeholder=${lastName}>
-				<input type="text" class="input-box" id="contactPhoneNumber" placeholder=${phoneNumber}>
-				<input type="text" class="input-box" id="contactEmail" placeholder=${email}>
-				<button type="button" id="addContactButton" onclick="updateContact(${i})" class="signup-btn">Update Contact</button>
-				<button id="back-btn" type="button" class="back-btn">
-					<span class="button__text"></span>
-					<span class="button__icon"> 
-						<ion-icon name="arrow-back-outline"></ion-icon>
-					</span>
-				</button>
-			</form>
-	<span id="addContactResult"></span>	
-	`;
-
-	document.body.appendChild(addContactForm);
-	
-	table.classList.add("formHidden");
-	addContactForm.classList.remove("formHidden");
-
-
-}
-
 // function addColor()
 // {
-// 	let newColor = document.getElementById("colorText").value;
-// 	document.getElementById("colorAddResult").innerHTML = "";
-
+	// 	let newColor = document.getElementById("colorText").value;
+	// 	document.getElementById("colorAddResult").innerHTML = "";
+	
 // 	let tmp = {color:newColor,userId,userId};
 // 	let jsonPayload = JSON.stringify( tmp );
 
