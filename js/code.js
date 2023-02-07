@@ -1,5 +1,6 @@
 const urlBase = 'http://spacecontacts.online///LAMPAPI';
 const extension = 'php';
+let arr = [];
 
 function loginValidation(){
 	document.getElementById("loginUsernameError").innerHTML = "";
@@ -430,7 +431,6 @@ function addContact()
 					// clears fields in contact box
 					document.getElementById("contact-form").reset();
 					// puts contact box away
-					
 					searchContacts();
 				}
 			};
@@ -516,6 +516,7 @@ function searchContacts()
 					let phoneNumber = jsonObject.results[i].Phone;
 					let email = jsonObject.results[i].Email;
 					//Actually change the dom
+					arr[i] = jsonObject.results[i].ID;
 
 					if( i < jsonObject.results.length)
 					{
@@ -568,7 +569,7 @@ function editContact(i)
 	const table = document.getElementById("table");
 	
 	
-	let firstName = document.getElementById("tableFirstName"+i).innerHTML
+	let firstName = document.getElementById("tableFirstName"+i).innerHTML;
 	let lastName = document.getElementById("tableLastName"+i).innerHTML;
 	let phoneNumber = document.getElementById("tablePhoneNumber"+i).innerHTML;
 	let email = document.getElementById("tableEmail"+i).innerHTML;
@@ -586,8 +587,8 @@ function editContact(i)
 				<input type="text" class="input-box" id="editcontactLastName" placeholder=${lastName}>
 				<input type="text" class="input-box" id="editcontactPhoneNumber" placeholder=${phoneNumber}>
 				<input type="text" class="input-box" id="editcontactEmail" placeholder=${email}>
-				<button type="button" id="addContactButton" onclick="updateContact()" class="signup-btn">Update Contact</button>
-				<button id="back-btn" type="button" class="back-btn" onclick="backButton()">
+				<button type="button" id="addContactButton" onclick="updateContact(${i})" class="signup-btn">Update Contact</button>
+				<button id="back-btn" type="button" class="back-btn" onclick='backButton()'>
 					<span class="button__text"></span>
 					<span class="button__icon"> 
 						<ion-icon name="arrow-back-outline"></ion-icon>
@@ -604,7 +605,7 @@ function editContact(i)
 	
 }
 
-function updateContact() 
+function updateContact(i) 
 {
 	
 	let firstName = document.getElementById("editcontactFirstName").value;
@@ -619,7 +620,7 @@ function updateContact()
 	console.log(email);
 	console.log(userId);
 
-	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId};
+	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId, ID: arr[i]};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/updateCon.' + extension;
@@ -633,7 +634,10 @@ function updateContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				searchContacts();
+				document.getElementById("tableFirstName"+i).innerHTML = firstName;
+				document.getElementById("tableLastName"+i).innerHTML = lastName;
+				document.getElementById("tablePhoneNumber"+i).innerHTML = phoneNumber;
+				document.getElementById("tableEmail"+i).innerHTML = email;
 			}
 		};
 		xhr.send(jsonPayload);
