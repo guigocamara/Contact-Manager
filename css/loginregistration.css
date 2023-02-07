@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@1,700&display=swap');
+
 html
 {
   width: 100%;
@@ -12,6 +15,8 @@ body
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Space Mono', monospace;
+
 }
 
 .formHidden{
@@ -111,6 +116,11 @@ body
   flex-direction: row;
   justify-content: space-between;
   
+}
+
+#loginTitle
+{
+  font-family: 'Space Mono', monospace;
 }
 
 ::placeholder{
