@@ -50,6 +50,18 @@ body
     width: 60%;
 }
 
+#addcontact{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logout{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .new-contact-btn
 {
     color: #00a566;
@@ -63,12 +75,6 @@ body
     cursor: pointer;
     border-color: #00a566;
     margin-left: 20px;
-}
-
-.button__icon{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .logout-btn
