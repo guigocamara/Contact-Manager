@@ -50,10 +50,22 @@ body
     width: 60%;
 }
 
+#addcontact{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logout{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .new-contact-btn
 {
     color: #00a566;
-    width: 10%;
+    width: 12%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
@@ -68,7 +80,7 @@ body
 .logout-btn
 {
     color: #00a566;
-    width: 10%;
+    width: 12%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
