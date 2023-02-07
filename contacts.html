@@ -39,19 +39,23 @@
     </head>
 
     <body>
-        <input id="searchBox" onkeyup="searchContacts()" type="text" class="input-box" placeholder="Search">
-        <button id="contact-btn" type="button" class="new-contact-btn">
-            <span class="button__text"></span>
-            <span class="button__icon"> 
-                <ion-icon name="person-add-outline"></ion-icon>
-            </span>
-        </button>
-        <button onclick="doLogout()" id="logout-btn" type="button" class="logout-btn">
-            <span class="button__text"></span>
-            <span class="button__icon">
-                <ion-icon name="log-out-outline"></ion-icon>
-            </span>
-        </button>
+        <div id="topBar">
+            <input id="searchBox" onkeyup="searchContacts()" type="text" class="input-box" placeholder="Search">
+            <button id="contact-btn" type="button" class="new-contact-btn">
+                <span class="button__text"></span>
+                <span class="button__icon"> 
+                    <div>Add Contact</div>
+                    <ion-icon name="person-add-outline"></ion-icon>
+                </span>
+            </button>
+            <button onclick="doLogout()" id="logout-btn" type="button" class="logout-btn">
+                <span class="button__text"></span>
+                <span class="button__icon">
+                    <div>Logout</div>
+                    <ion-icon name="log-out-outline"></ion-icon>
+                </span>
+            </button>
+        </div>
 
 
 

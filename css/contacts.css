@@ -34,10 +34,22 @@ body
     border-color: #00a566;
 }
 
+#topBar{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#searchBox{
+    width: 60%;
+}
+
 .new-contact-btn
 {
     color: #00a566;
-    width: 7%;
+    width: 10%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
@@ -52,7 +64,7 @@ body
 .logout-btn
 {
     color: #00a566;
-    width: 7%;
+    width: 10%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
@@ -61,7 +73,7 @@ body
     outline: none;
     cursor: pointer;
     border-color: #00a566;
-    margin-left: 430px;
+    margin-left: 10px;
 }
 
 .styled-table {
