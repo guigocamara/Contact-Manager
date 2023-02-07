@@ -662,7 +662,7 @@ function editContact(i)
 	editContactForm.innerHTML =
 	` <img src="images/alien-user-icon.png">
 			<h1>Edit Contact</h1>
-			<form id="contact-form">
+			<form id="edit-contact-form">
 			<i class="fa-solid fa-user-alien"></i>
 				<input type="text" class="input-box" id="editcontactFirstName" placeholder=${firstName} onkeyup='editValidation()'>
 				<div id="editcontactFirstNameError" class="validationError"></div>
@@ -739,6 +739,9 @@ function updateContact(i)
 					document.getElementById("tableLastName"+i).innerHTML = lastName;
 					document.getElementById("tablePhoneNumber"+i).innerHTML = phoneNumber;
 					document.getElementById("tableEmail"+i).innerHTML = email;
+
+					// clears fields in contact box
+					document.getElementById("edit-contact-form").reset();
 				}
 			};
 			xhr.send(jsonPayload);
@@ -755,8 +758,8 @@ function backButton()
 {
 	console.log("gets in");
 	//editContactForm.classList.add("formHidden");
-	const editContactForm = document.getElementById("editContactForm");
-	editContactForm.innerHTML = "";
+	//const editContactForm = document.getElementById("editContactForm");
+	document.body.removeChild(editContactForm);
 	table.classList.remove("formHidden");
 	console.log("gets out");
 }
