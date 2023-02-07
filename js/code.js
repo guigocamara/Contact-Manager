@@ -658,7 +658,7 @@ function editContact(i)
 
 	const editContactForm = document.createElement('div');
 	editContactForm.setAttribute("id", "editContactForm");
-	editContactForm.setAttribute("class", "sign-up-form formHidden");
+	editContactForm.setAttribute("class", "sign-up-form");
 	editContactForm.innerHTML =
 	` <img src="images/alien-user-icon.png">
 			<h1>Edit Contact</h1>
@@ -686,7 +686,6 @@ function editContact(i)
 	document.body.appendChild(editContactForm);
 	
 	table.classList.add("formHidden");
-	editContactForm.classList.remove("formHidden");
 	
 }
 
@@ -755,7 +754,9 @@ function updateContact(i)
 function backButton()
 {
 	console.log("gets in");
-	editContactForm.classList.add("formHidden");
+	//editContactForm.classList.add("formHidden");
+	const editContactForm = document.getElementById("editContactForm");
+	editContactForm.innerHTML = "";
 	table.classList.remove("formHidden");
 	console.log("gets out");
 }
