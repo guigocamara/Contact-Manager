@@ -111,7 +111,88 @@ function addContactValidation(){
 	var startLetter = /^[A-Za-z]/g;
 	var betweenLetters = /^[A-Za-z0-9]*$/g;
 	var totalRegexName = /^[a-z ,.'-]+$/i
-	var totalRegexPhone = /^\d+$/g
+	var totalRegexPhone = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g
+	var totalRegexEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+	let resultfirstname = false;
+	let resultlastname = false;
+	let resultphonenumber = false;
+	let resultemail = false;
+
+
+	//Validate first name
+	if(contactFirstName.match(totalRegexName)){
+		contactFirstNameError.innerHTML = "";
+		resultfirstname = true;
+	}else if(contactFirstName.length == 0){
+		contactFirstNameError.innerHTML = "";
+	}else{
+		if(!contactFirstName.match(totalRegexName)){
+			contactFirstNameError.innerHTML = "Please enter a valid first name";
+		}
+	}
+
+	
+	//Validate last name
+	if(contactLastName.match(totalRegexName)){
+		contactLastNameError.innerHTML = "";
+		resultlastname = true;
+	}else if(contactLastName.length == 0){
+		contactLastNameError.innerHTML = "";
+	}else{
+		if(!contactLastName.match(totalRegexName)){
+			contactLastNameError.innerHTML = "Please enter a valid last name";
+		}
+	}
+
+	//Validate phone number
+	if(contactPhoneNumber.match(totalRegexPhone)){
+		contactPhoneNumberError.innerHTML = "";
+		resultphonenumber = true;
+	}else if(contactPhoneNumber.length == 0){
+		contactPhoneNumberError.innerHTML = "";
+	}else{
+		if(!contactPhoneNumber.match(totalRegexPhone)){
+			contactPhoneNumberError.innerHTML = "Please enter a valid phone number";
+		}
+	}
+
+	//Validate email
+	if(contactEmail.match(totalRegexEmail)){
+		contactEmailError.innerHTML = "";
+		resultemail= true;
+	}else if(contactEmail.length == 0){
+		contactEmailError.innerHTML = "";
+	}else{
+		if(!contactEmail.match(totalRegexEmail)){
+			contactEmailError.innerHTML = "Please enter a valid email address";
+		}
+	}
+
+
+
+
+
+	if(resultemail && resultphonenumber && resultfirstname && resultlastname){
+		return(true);
+	}else{
+		return(false);
+	}
+}
+
+function editValidation(){
+	const contactFirstNameError = document.getElementById("editcontactFirstNameError");
+	const contactLastNameError = document.getElementById("editcontactLastNameError");
+	const contactPhoneNumberError = document.getElementById("editcontactPhoneNumberError");
+	const contactEmailError = document.getElementById("editcontactEmailError");
+	const contactFirstName = document.getElementById("editcontactFirstName").value;
+	const contactLastName = document.getElementById("editcontactLastName").value;
+	const contactPhoneNumber = document.getElementById("editcontactPhoneNumber").value;
+	const contactEmail = document.getElementById("editcontactEmail").value;
+
+	var startLetter = /^[A-Za-z]/g;
+	var betweenLetters = /^[A-Za-z0-9]*$/g;
+	var totalRegexName = /^[a-z ,.'-]+$/i
+	var totalRegexPhone = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g
 	var totalRegexEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 	let resultfirstname = false;
 	let resultlastname = false;
@@ -583,10 +664,14 @@ function editContact(i)
 			<h1>Edit Contact</h1>
 			<form id="contact-form">
 			<i class="fa-solid fa-user-alien"></i>
-				<input type="text" class="input-box" id="editcontactFirstName" placeholder=${firstName}>
-				<input type="text" class="input-box" id="editcontactLastName" placeholder=${lastName}>
-				<input type="text" class="input-box" id="editcontactPhoneNumber" placeholder=${phoneNumber}>
-				<input type="text" class="input-box" id="editcontactEmail" placeholder=${email}>
+				<input type="text" class="input-box" id="editcontactFirstName" placeholder=${firstName} onkeyup='editValidation()'>
+				<div id="editcontactFirstNameError" class="validationError"></div>
+				<input type="text" class="input-box" id="editcontactLastName" placeholder=${lastName} onkeyup='editValidation()'>
+				<div id="editcontactLastNameError" class="validationError"></div>
+				<input type="text" class="input-box" id="editcontactPhoneNumber" placeholder=${phoneNumber} onkeyup='editValidation()'>
+				<div id="editcontactPhoneNumberError" class="validationError"></div>
+				<input type="text" class="input-box" id="editcontactEmail" placeholder=${email} onkeyup='editValidation()'>
+				<div id="editcontactEmailError" class="validationError"></div>
 				<button type="button" id="addContactButton" onclick="updateContact(${i})" class="signup-btn">Update Contact</button>
 				<button id="back-btn" type="button" class="back-btn" onclick='backButton()'>
 					<span class="button__text"></span>
@@ -607,48 +692,64 @@ function editContact(i)
 
 function updateContact(i) 
 {
-	
-	let firstName = document.getElementById("editcontactFirstName").value;
-	let lastName = document.getElementById("editcontactLastName").value;
-	let phoneNumber = document.getElementById("editcontactPhoneNumber").value;
-	let email = document.getElementById("editcontactEmail").value;
-	//document.getElementById("editContactResult").innerHTML = "";``
+	//Check that the input field are not empty
+	if(document.getElementById("editcontactFirstName").value.length == 0 || document.getElementById("editcontactLastName").value.length == 0 || document.getElementById("editcontactEmail").value.length == 0 || document.getElementById("editcontactPhoneNumber").value.length == 0){
+		if(document.getElementById("editcontactEmail").value.length == 0){
+			document.getElementById("editcontactEmailError").innerHTML = "Please enter a Email!";
+		}
 
-	console.log(firstName);
-	console.log(lastName);
-	console.log(phoneNumber);
-	console.log(email);
-	console.log(userId);
+		if(document.getElementById("editcontactPhoneNumber").value.length == 0){
+			document.getElementById("editcontactPhoneNumberError").innerHTML = "Please enter a Phone Number!";
+		}
 
-	let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId, ID: arr[i]};
-	let jsonPayload = JSON.stringify( tmp );
+		if(document.getElementById("editcontactFirstName").value.length == 0){
+			document.getElementById("editcontactFirstNameError").innerHTML = "Please enter a First Name!";
+		}
 
-	let url = urlBase + '/updateCon.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
+		if(document.getElementById("editcontactLastName").value.length == 0){
+			document.getElementById("editcontactLastNameError").innerHTML = "Please enter a Last Name!";
+		}
+	}else if(editValidation() == true){
+		let firstName = document.getElementById("editcontactFirstName").value;
+		let lastName = document.getElementById("editcontactLastName").value;
+		let phoneNumber = document.getElementById("editcontactPhoneNumber").value;
+		let email = document.getElementById("editcontactEmail").value;
+		//document.getElementById("editContactResult").innerHTML = "";``
+
+		console.log(firstName);
+		console.log(lastName);
+		console.log(phoneNumber);
+		console.log(email);
+		console.log(userId);
+
+		let tmp = {FirstName:firstName, LastName:lastName, Phone: phoneNumber, Email:email, UserId:userId, ID: arr[i]};
+		let jsonPayload = JSON.stringify( tmp );
+
+		let url = urlBase + '/updateCon.' + extension;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			xhr.onreadystatechange = function() 
 			{
-				document.getElementById("tableFirstName"+i).innerHTML = firstName;
-				document.getElementById("tableLastName"+i).innerHTML = lastName;
-				document.getElementById("tablePhoneNumber"+i).innerHTML = phoneNumber;
-				document.getElementById("tableEmail"+i).innerHTML = email;
-			}
-		};
-		xhr.send(jsonPayload);
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("tableFirstName"+i).innerHTML = firstName;
+					document.getElementById("tableLastName"+i).innerHTML = lastName;
+					document.getElementById("tablePhoneNumber"+i).innerHTML = phoneNumber;
+					document.getElementById("tableEmail"+i).innerHTML = email;
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("editContactResult").innerHTML = err.message;
+		}
+
 	}
-	catch(err)
-	{
-		document.getElementById("editContactResult").innerHTML = err.message;
-	}
-
-
-
 }
 
 function backButton()
