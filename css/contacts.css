@@ -49,7 +49,7 @@ body
 .new-contact-btn
 {
     color: #00a566;
-    width: 10%;
+    width: 12%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
@@ -61,10 +61,16 @@ body
     margin-left: 20px;
 }
 
+.button__icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .logout-btn
 {
     color: #00a566;
-    width: 10%;
+    width: 12%;
     padding: 10px;
     border-radius: 20px;
     font-size: 15px;
